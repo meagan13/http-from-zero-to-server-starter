@@ -6,7 +6,7 @@ const server = http.createServer(function (req, res) {
         res.writeHead(200);
         res.end();
     } else if (req.url === "/Bad-Request") {
-        console.log("Ecountered 400 due to client error");
+        console.log("Encountered 400 due to client error");
         res.writeHead(400);
         res.end();
     } else if (req.url === "/Created") {
@@ -22,10 +22,10 @@ const server = http.createServer(function (req, res) {
         res.writeHead(302);
         res.end();
     } else if (req.url === "/Gateway-Timeout") {
-        console.log("Get not get response in time from upstream server: 504");
+        console.log("Did not get response in time from upstream server: 504");
         res.writeHead(504);
         res.end();
-    } else if (req.url === "Internal-Server-Error") {
+    } else if (req.url === "/Internal-Server-Error") {
         console.log("Encountered unexpected condition: 500");
         res.writeHead(500);
         res.end();
@@ -36,6 +36,15 @@ const server = http.createServer(function (req, res) {
     } else if (req.url === "/Unauthorized") {
         console.log("No authorization/missing authentication: 401");
         res.writeHead(401);
+        res.end();
+    } else if (req.url === "/Bonus/Redirect") {
+        console.log("Successfuly redirected: 302")
+        res.writeHead(302, { 'Location': 'http://localhost:3000/Forbidden' })
+        res.end();
+    } else if (req.url === "/Bonus/Webpage") {
+        console.log("Basic webpage")
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.write("<html><h1>A Very Basic Webpage</h1></html>");
         res.end();
     } else {
         console.log("Sorry encountered 404")
